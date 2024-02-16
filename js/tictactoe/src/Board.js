@@ -32,10 +32,10 @@ export default function Board() {
         }
 
         const nextSquares = squares.slice();
-        let pickedSquare = Math.floor(Math.random() * 10);
+        let pickedSquare = Math.floor(Math.random() * 9);
 
         while (squares[pickedSquare]) {
-            pickedSquare = Math.floor(Math.random() * 10);
+            pickedSquare = Math.floor(Math.random() * 9);
         }
         nextSquares[pickedSquare] = 'O';
         setSquares(nextSquares);
@@ -45,9 +45,9 @@ export default function Board() {
     const winner = calculateWinner(squares);
     let status;
     if (winner) {
-        status = 'Winner: ' + winner;
+        status =winner + ' is the Winner!';
     } else {
-        status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+        status = (xIsNext ? 'X' : 'O') + "'s Turn";
     }
 
     return (
