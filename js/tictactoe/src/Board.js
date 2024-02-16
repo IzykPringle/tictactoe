@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Cpu from './Cpu';
 
 function Square({ value, onSquareClick }) {
     return (
@@ -17,11 +18,26 @@ export default function Board() {
             return;
         }
         const nextSquares = squares.slice();
-        if (xIsNext) {
-            nextSquares[i] = 'X';
-        } else {
-            nextSquares[i] = 'O';
+
+        nextSquares[i] = 'X';
+        setSquares(nextSquares);
+        setXIsNext(!xIsNext);
+
+    }
+    if (!xIsNext) { setTimeout(cpu, 1000) }
+
+    function cpu() {
+        if (calculateWinner(squares)) {
+            return;
         }
+
+        const nextSquares = squares.slice();
+        let pickedSquare = Math.floor(Math.random() * 9);
+
+        while (squares[pickedSquare]) {
+            pickedSquare = Math.floor(Math.random() * 9);
+        }
+        nextSquares[pickedSquare] = 'O';
         setSquares(nextSquares);
         setXIsNext(!xIsNext);
     }
@@ -29,9 +45,9 @@ export default function Board() {
     const winner = calculateWinner(squares);
     let status;
     if (winner) {
-        status = 'Winner: ' + winner;
+        status =winner + ' is the Winner!';
     } else {
-        status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+        status = (xIsNext ? 'X' : 'O') + "'s Turn";
     }
 
     return (
